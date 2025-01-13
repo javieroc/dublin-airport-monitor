@@ -1,11 +1,14 @@
 import {FC} from 'react';
+import {FlightsBoard, HighlightsBoard, Navbar} from './components';
 
 const App: FC = () => {
   return (
     <>
-      <h1 className="text-3xl font-bold text-red-600">
-      Hello world!
-      </h1>
+      <Navbar />
+      <section className='flex justify-center gap-8 pt-8'>
+        <FlightsBoard />
+        <HighlightsBoard />
+      </section>
     </>
   );
 };
