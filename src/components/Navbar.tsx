@@ -3,7 +3,7 @@ import {FaArrowLeft, FaArrowRight} from 'react-icons/fa';
 
 const Navbar: FC = () => {
   return (
-    <nav className="flex flex-col items-center gap-2 bg-gray-50 p-4">
+    <nav className="flex flex-col items-center gap-2 border-b border-gray-200 bg-gray-50 p-4">
       <h1 className="text-3xl font-bold text-blue-950">Ryanair Monitor</h1>
       <menu className="flex content-center gap-2">
         <button className="flex h-8 w-8 items-center justify-center rounded-sm bg-gray-200 hover:bg-gray-300 active:bg-gray-400" aria-label="Left">

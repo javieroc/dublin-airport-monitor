@@ -14,7 +14,7 @@ const FlightsBoard: FC = () => {
   };
 
   return (
-    <section className="grid max-w-96 grid-cols-9 gap-2 rounded-sm bg-gray-50 p-4">
+    <section className="grid max-w-96 grid-cols-9 gap-2 rounded-lg border border-gray-200 bg-gray-50 p-4">
       {data.flights.map((flight) => (
         <FaPlane key={flight.id} className={clsx('h-8 w-8', {
           'text-green-500': flight.status === 'active',
