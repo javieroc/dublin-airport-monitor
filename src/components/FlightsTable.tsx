@@ -1,71 +1,76 @@
 import {FC} from 'react';
+import {useFlights} from '../hooks';
+import {createColumnHelper, flexRender, getCoreRowModel, useReactTable} from '@tanstack/react-table';
+import {Datum} from '../types';
 
 const FlightsTable: FC = () => {
+  const {data: response} = useFlights({pageIndex: 0, pageSize: 20});
+
+  const columnHelper = createColumnHelper<Datum>();
+
+  const columns = [
+    columnHelper.accessor('flight.number', {
+      header: () => 'Flight #',
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor('departure.airport', {
+      header: () => 'Departure',
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor('arrival.airport', {
+      header: () => 'Arrival',
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor('departure.estimated', {
+      header: () => 'Estimated Departure Time',
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor('departure.delay', {
+      header: () => 'Delay',
+      cell: (info) => info.getValue() ? `${info.getValue()}m` : '-',
+    }),
+    columnHelper.accessor('flight_status', {
+      header: () => 'Flight Status',
+      cell: (info) => info.getValue(),
+    }),
+  ];
+
+  const table = useReactTable({
+    data: response?.data ?? [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
   return (
-    <section className="w-full rounded-lg border border-gray-200 bg-gray-50">
+    <section className="rounded-lg border border-gray-200 bg-gray-50">
       <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
         <thead className="border-b text-xs uppercase text-gray-700 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-                    Product name
-            </th>
-            <th scope="col" className="px-6 py-3">
-                    Color
-            </th>
-            <th scope="col" className="px-6 py-3">
-                    Category
-            </th>
-            <th scope="col" className="px-6 py-3">
-                    Price
-            </th>
-          </tr>
+          {table.getHeaderGroups().map((headerGroup) => (
+            <tr key={headerGroup.id}>
+              {headerGroup.headers.map((header) => (
+                <th key={header.id} scope="col" className="px-6 py-3">
+                  {header.isPlaceholder ?
+                      null :
+                      flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                      )}
+                </th>
+              ))}
+            </tr>
+          ))}
         </thead>
         <tbody>
-          <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-            <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-            Apple MacBook Pro 17
-            </th>
-            <td className="px-6 py-4">
-                    Silver
-            </td>
-            <td className="px-6 py-4">
-                    Laptop
-            </td>
-            <td className="px-6 py-4">
-                    $2999
-            </td>
-          </tr>
-          <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-            <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                    Microsoft Surface Pro
-            </th>
-            <td className="px-6 py-4">
-                    White
-            </td>
-            <td className="px-6 py-4">
-                    Laptop PC
-            </td>
-            <td className="px-6 py-4">
-                    $1999
-            </td>
-          </tr>
-          <tr className="bg-white dark:bg-gray-800">
-            <th scope="row" className="whitespace-nowrap px-6 py-4 font-medium text-gray-900 dark:text-white">
-                    Magic Mouse 2
-            </th>
-            <td className="px-6 py-4">
-                    Black
-            </td>
-            <td className="px-6 py-4">
-                    Accessories
-            </td>
-            <td className="px-6 py-4">
-                    $99
-            </td>
-          </tr>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id} className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id} className="whitespace-nowrap px-6 py-4 font-medium text-gray-900">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
-
     </section>
   );
 };
