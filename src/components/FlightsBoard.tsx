@@ -8,8 +8,8 @@ const FlightsBoard: FC = () => {
   const {data: response} = useFlights({flightDate: '2025-01-16'});
 
   return (
-    <section className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
-      <div className="grid max-w-96 grid-cols-9 gap-2">
+    <section className="row-span-4 flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+      <div className="grid grid-cols-12 gap-2">
         {response?.data.map((flight) => {
           const delay = flight?.departure?.delay ?? 0;
           return (
@@ -22,10 +22,10 @@ const FlightsBoard: FC = () => {
           );
         })}
       </div>
-      <div className="max-w-96">
+      <div className="text-left">
         <h3 className="text-lg font-bold text-gray-900">{`Total: ${stats?.flightsTotal}, Cancelled: ${stats?.cancelled}, Flights delayed more than 45 min: ${stats?.delayedMoreThan45Min}`}</h3>
       </div>
-      <div className="flex max-w-96 flex-wrap justify-center gap-2">
+      <div className="flex flex-wrap justify-center gap-2">
         <div className="flex gap-1">
           <FaPlaneSlash className="h-5 w-5 text-gray-500" />
           <h3 className="text-sm">Cancelled</h3>

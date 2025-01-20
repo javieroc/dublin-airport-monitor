@@ -1,6 +1,7 @@
 import {DefaultError, useQuery, UseQueryOptions} from '@tanstack/react-query';
 import {api} from '../axios';
 import {QueryParams, StatsResponse} from '../types';
+import {QUERY_KEYS} from '../constants';
 
 const getStats = async (
     params: QueryParams = {},
@@ -14,7 +15,7 @@ function useStats(
     options?: UseQueryOptions<StatsResponse, DefaultError, StatsResponse>,
 ) {
   return useQuery<StatsResponse>({
-    queryKey: ['STATS', flightDate],
+    queryKey: [QUERY_KEYS.STATS, flightDate],
     queryFn: () => getStats({flightDate}),
     ...options,
   });

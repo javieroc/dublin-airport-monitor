@@ -5,9 +5,9 @@ const App: FC = () => {
   return (
     <>
       <Navbar />
-      <section className='m-auto w-3/4'>
-        <section className='flex flex-col items-center gap-8 pt-8'>
-          <section className='flex justify-center gap-4'>
+      <section className='mx-auto max-w-[1000px] p-4'>
+        <section className='mt-4 flex flex-col items-center gap-4'>
+          <section className='grid grid-rows-4 gap-4 text-balance lg:grid-cols-2'>
             <FlightsBoard />
             <HighlightsBoard />
           </section>

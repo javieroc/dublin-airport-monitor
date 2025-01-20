@@ -3,7 +3,7 @@ import {createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, 
 import {FaAngleLeft, FaAngleRight} from 'react-icons/fa';
 import {Datum} from '../types';
 import {usePaginatedFlights} from '../hooks';
-
+import {format} from 'date-fns';
 
 const FlightsTable: FC = () => {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -19,21 +19,14 @@ const FlightsTable: FC = () => {
       header: () => 'Flight #',
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor('departure.airport', {
-      header: () => 'Departure',
+    columnHelper.accessor((row: Datum) => `${row.departure.airport} -> ${row.arrival.airport}`, {
+      id: 'route',
       cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('arrival.airport', {
-      header: () => 'Arrival',
-      cell: (info) => info.getValue(),
-    }),
-    columnHelper.accessor('flight_date', {
-      header: () => 'Flight Date',
-      cell: (info) => info.getValue(),
+      header: () => 'Route',
     }),
     columnHelper.accessor('departure.estimated', {
       header: () => 'Estimated Departure Time',
-      cell: (info) => info.getValue(),
+      cell: (info) => format(new Date(info.getValue()), 'yyyy-MM-dd HH:mm'),
     }),
     columnHelper.accessor('departure.delay', {
       header: () => 'Delay',
@@ -58,13 +51,13 @@ const FlightsTable: FC = () => {
     pageCount: response?.total ? Math.ceil(response.total / pagination.pageSize) : undefined,
   });
   return (
-    <section className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-      <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-        <thead className="border-b text-xs uppercase text-gray-700 dark:border-gray-700 dark:bg-gray-700 dark:text-gray-400">
+    <section className="w-full max-w-[1000px]">
+      <table className="hidden w-full overflow-hidden rounded-lg bg-white shadow-md sm:table dark:bg-gray-800">
+        <thead className="bg-neutral-200 dark:bg-gray-700">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th key={header.id} scope="col" className="px-6 py-3">
+                <th key={header.id} scope="col" className="px-4 py-2 text-left text-gray-800">
                   {header.isPlaceholder ?
                       null :
                       flexRender(
