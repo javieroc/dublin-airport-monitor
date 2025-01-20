@@ -14,8 +14,8 @@ export interface StatsResponse {
 }
 
 export interface PaginationParams {
-  pageIndex?: number;
-  pageSize?: number;
+  pageIndex: number;
+  pageSize: number;
 }
 
 export interface PaginationApiParams {

@@ -1,2 +1,2 @@
-export {useFlights} from './useFlights';
+export {useFlights, usePaginatedFlights} from './useFlights';
 export {useStats} from './useStats';
