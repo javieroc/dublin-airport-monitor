@@ -4,7 +4,7 @@ import {createColumnHelper, flexRender, getCoreRowModel, useReactTable} from '@t
 import {Datum} from '../types';
 
 const FlightsTable: FC = () => {
-  const {data: response} = useFlights({pageIndex: 0, pageSize: 20});
+  const {data: response} = useFlights({pageIndex: 0, pageSize: 20, flightDate: '2025-01-16'});
 
   const columnHelper = createColumnHelper<Datum>();
 
@@ -19,6 +19,10 @@ const FlightsTable: FC = () => {
     }),
     columnHelper.accessor('arrival.airport', {
       header: () => 'Arrival',
+      cell: (info) => info.getValue(),
+    }),
+    columnHelper.accessor('flight_date', {
+      header: () => 'Flight Date',
       cell: (info) => info.getValue(),
     }),
     columnHelper.accessor('departure.estimated', {

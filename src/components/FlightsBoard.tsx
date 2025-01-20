@@ -1,29 +1,26 @@
 import {FC} from 'react';
-import {faker} from '@faker-js/faker';
 import {FaPlane, FaPlaneSlash} from 'react-icons/fa';
 import clsx from 'clsx';
-import {useStats} from '../hooks';
+import {useFlights, useStats} from '../hooks';
 
 const FlightsBoard: FC = () => {
-  const {data: stats} = useStats({date: '2025-01-16'});
-  const data = {
-    total: 78,
-    flights: Array(78).fill(0).map((index) => ({
-      id: index,
-      status: faker.helpers.arrayElement(['cancelled', 'active']),
-      delay: faker.number.int({min: 10, max: 100}),
-    })).sort((a, b) => (a.status === 'active' ? -1 : 1) - (b.status === 'active' ? -1 : 1)),
-  };
+  const {data: stats} = useStats({flightDate: '2025-01-16'});
+  const {data: response} = useFlights({flightDate: '2025-01-16'});
 
   return (
     <section className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
       <div className="grid max-w-96 grid-cols-9 gap-2">
-        {data.flights.map((flight) => (
-          <FaPlane key={flight.id} className={clsx('h-8 w-8', {
-            'text-green-500': flight.status === 'active',
-            'text-red-600': flight.status === 'cancelled',
-          })} />
-        ))}
+        {response?.data.map((flight) => {
+          const delay = flight?.departure?.delay ?? 0;
+          return (
+            <FaPlane key={flight.flight.number} className={clsx('h-8 w-8', {
+              'text-red-600': delay > 45,
+              'text-orange-500': 30 < delay && delay <= 45,
+              'text-yellow-400': 15 < delay && delay <= 30,
+              'text-green-500': delay <= 15,
+            })} />
+          );
+        })}
       </div>
       <div className="max-w-96">
         <h3 className="text-lg font-bold text-gray-900">{`Total: ${stats?.flightsTotal}, Cancelled: ${stats?.cancelled}, Flights delayed more than 45 min: ${stats?.delayedMoreThan45Min}`}</h3>

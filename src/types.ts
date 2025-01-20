@@ -14,8 +14,8 @@ export interface StatsResponse {
 }
 
 export interface PaginationParams {
-  pageIndex: number;
-  pageSize: number;
+  pageIndex?: number;
+  pageSize?: number;
 }
 
 export interface PaginationApiParams {
@@ -24,7 +24,7 @@ export interface PaginationApiParams {
 }
 
 export interface QueryParams {
-  date?: string;
+  flightDate?: string;
 }
 
 export type Datum = {

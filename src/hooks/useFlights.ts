@@ -1,21 +1,21 @@
 import {DefaultError, useQuery, UseQueryOptions} from '@tanstack/react-query';
+import {FlightsReponse, PaginationApiParams, PaginationParams, QueryParams} from '../types';
 import {api} from '../axios';
-import {FlightsReponse, PaginationApiParams, PaginationParams} from '../types';
 
 const getFlights = async (
-    params: PaginationApiParams = {},
+    params: PaginationApiParams & QueryParams = {},
 ): Promise<FlightsReponse> => {
   const {data} = await api.get<FlightsReponse>('/flights', {params});
   return data;
 };
 
 function useFlights(
-    {pageIndex, pageSize}: PaginationParams,
+    {pageIndex, pageSize, flightDate}: PaginationParams & QueryParams,
     options?: UseQueryOptions<FlightsReponse, DefaultError, FlightsReponse>,
 ) {
   return useQuery<FlightsReponse>({
-    queryKey: ['FLIGHTS', pageIndex, pageSize],
-    queryFn: () => getFlights({offset: pageIndex * pageSize, limit: pageSize}),
+    queryKey: ['FLIGHTS', pageIndex, pageSize, flightDate],
+    queryFn: () => getFlights({flightDate}),
     ...options,
   });
 }
