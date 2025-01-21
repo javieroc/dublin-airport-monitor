@@ -8,7 +8,7 @@ const FlightsBoard: FC = () => {
   const {data: response} = useFlights({flightDate: '2025-01-16'});
 
   return (
-    <section className="row-span-4 flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
+    <section className="row-span-4 flex flex-col items-center justify-center gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 text-xl">
       <div className="grid grid-cols-12 gap-2">
         {response?.data.map((flight) => {
           const delay = flight?.departure?.delay ?? 0;
