@@ -1,11 +1,12 @@
 import {FC} from 'react';
 import {FaPlane, FaPlaneSlash} from 'react-icons/fa';
 import clsx from 'clsx';
-import {useFlights, useStats} from '../hooks';
+import {useFlights, useStats, useTimetableDate} from '../hooks';
 
 const FlightsBoard: FC = () => {
-  const {data: stats} = useStats({flightDate: '2025-01-16'});
-  const {data: response} = useFlights({flightDate: '2025-01-16'});
+  const {formattedTimetableDate} = useTimetableDate();
+  const {data: stats} = useStats({flightDate: formattedTimetableDate});
+  const {data: response} = useFlights({flightDate: formattedTimetableDate});
 
   return (
     <section className="row-span-4 flex flex-col items-center justify-center gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 text-xl">

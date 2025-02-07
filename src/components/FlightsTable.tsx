@@ -2,15 +2,16 @@ import {FC, useState} from 'react';
 import {createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, PaginationState, useReactTable} from '@tanstack/react-table';
 import {FaAngleLeft, FaAngleRight} from 'react-icons/fa';
 import {Timetable} from '../types';
-import {usePaginatedFlights} from '../hooks';
+import {usePaginatedFlights, useTimetableDate} from '../hooks';
 import {format} from 'date-fns';
 
 const FlightsTable: FC = () => {
+  const {formattedTimetableDate} = useTimetableDate();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 20,
   });
-  const {data: response} = usePaginatedFlights({flightDate: '2025-01-16', ...pagination});
+  const {data: response} = usePaginatedFlights({flightDate: formattedTimetableDate, ...pagination});
 
   const columnHelper = createColumnHelper<Timetable>();
 
