@@ -6,7 +6,7 @@ import {api} from '../axios';
 const getAverageDelay = async (
     params: QueryParams = {},
 ): Promise<{ averageDelay: number}> => {
-  const {data} = await api.get<{ averageDelay: number}>('/flights/average-delay', {params});
+  const {data} = await api.get<{ averageDelay: number}>('/timetable/average-delay', {params});
   return data;
 };
 

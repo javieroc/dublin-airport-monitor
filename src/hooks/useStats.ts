@@ -6,7 +6,7 @@ import {QUERY_KEYS} from '../constants';
 const getStats = async (
     params: QueryParams = {},
 ): Promise<StatsResponse> => {
-  const {data} = await api.get<StatsResponse>('/flights/stats', {params});
+  const {data} = await api.get<StatsResponse>('/timetable/stats', {params});
   return data;
 };
 

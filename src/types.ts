@@ -1,7 +1,7 @@
 export type FlightsReponse = {
   // pagination: Pagination;
   total: number;
-  data: Datum[];
+  data: Timetable[];
 }
 
 export interface StatsResponse {
@@ -27,64 +27,55 @@ export interface QueryParams {
   flightDate?: string;
 }
 
-export type Datum = {
-  flight_date: Date;
-  flight_status: FlightStatus | null;
-  departure: Arrival;
+export type Timetable = {
+  timetable_date: string;
+  codeshared?: string;
+  status: string;
+  type: string;
+  departure: Departure;
   arrival: Arrival;
   airline: Airline;
   flight: Flight;
-  aircraft: Aircraft | null;
-  live: Live | null;
-}
-
-export type Aircraft = {
-  registration: string;
-  iata: string;
-  icao: string;
-  icao24: string;
 }
 
 export type Airline = {
+  iataCode: string;
+  icaoCode: string;
   name: string;
-  iata: string;
-  icao: string;
+}
+
+export type Departure = {
+  actualRunway?: string;
+  actualTime?: string;
+  baggage: unknown;
+  delay?: number;
+  estimatedRunway?: string;
+  estimatedTime: string;
+  gate?: string;
+  iataCode: string;
+  icaoCode: string;
+  scheduledTime: string;
+  terminal?: string;
 }
 
 export type Arrival = {
-  airport: string;
-  timezone: string;
-  iata: string;
-  icao: string;
-  terminal: null | string;
-  gate: null | string;
-  baggage?: null | string;
-  delay: number | null;
-  scheduled: Date;
-  estimated: Date;
-  actual: Date | null;
-  estimated_runway: Date | null;
-  actual_runway: Date | null;
+  actualRunway?: string;
+  actualTime?: string;
+  baggage?: string;
+  delay?: number;
+  estimatedRunway?: string;
+  estimatedTime?: string;
+  gate?: string;
+  iataCode: string;
+  icaoCode: string;
+  scheduledTime: string;
+  terminal?: string;
 }
 
 export type Flight = {
-  number: null | string;
-  iata: string;
-  icao: string;
-  codeshared: null;
-}
-
-export type FlightStatus = 'active' | 'landed' | 'scheduled';
-
-export type Live = {
-  updated: Date;
-  latitude: number;
-  longitude: number;
-  altitude: number;
-  direction: number;
-  speed_horizontal: number;
-  speed_vertical: number;
-  is_ground: boolean;
+  iataNumber: string;
+  icaoNumber: string;
+  number?: string;
 }
 
 export type Pagination = {

@@ -1,20 +1,20 @@
 import {DefaultError, useQuery, UseQueryOptions} from '@tanstack/react-query';
-import {Datum, QueryParams} from '../types';
+import {Timetable, QueryParams} from '../types';
 import {QUERY_KEYS} from '../constants';
 import {api} from '../axios';
 
 const getHishestDelay = async (
     params: QueryParams = {},
-): Promise<Datum> => {
-  const {data} = await api.get<Datum>('/flights/highest-delay', {params});
+): Promise<Timetable> => {
+  const {data} = await api.get<Timetable>('/timetable/highest-delay', {params});
   return data;
 };
 
 function useHighestDelay(
     {flightDate}: QueryParams,
-    options?: UseQueryOptions<Datum, DefaultError, Datum>,
+    options?: UseQueryOptions<Timetable, DefaultError, Timetable>,
 ) {
-  return useQuery<Datum>({
+  return useQuery<Timetable>({
     queryKey: [QUERY_KEYS.HIGHEST_DELAY, flightDate],
     queryFn: () => getHishestDelay({flightDate}),
     ...options,

@@ -6,7 +6,7 @@ import {api} from '../axios';
 const getFlights = async (
     params: PaginationApiParams & QueryParams = {},
 ): Promise<FlightsReponse> => {
-  const {data} = await api.get<FlightsReponse>('/flights', {params});
+  const {data} = await api.get<FlightsReponse>('/timetable', {params});
   return data;
 };
 

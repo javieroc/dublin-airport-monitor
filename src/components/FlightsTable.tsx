@@ -1,7 +1,7 @@
 import {FC, useState} from 'react';
 import {createColumnHelper, flexRender, getCoreRowModel, getPaginationRowModel, PaginationState, useReactTable} from '@tanstack/react-table';
 import {FaAngleLeft, FaAngleRight} from 'react-icons/fa';
-import {Datum} from '../types';
+import {Timetable} from '../types';
 import {usePaginatedFlights} from '../hooks';
 import {format} from 'date-fns';
 
@@ -12,19 +12,19 @@ const FlightsTable: FC = () => {
   });
   const {data: response} = usePaginatedFlights({flightDate: '2025-01-16', ...pagination});
 
-  const columnHelper = createColumnHelper<Datum>();
+  const columnHelper = createColumnHelper<Timetable>();
 
   const columns = [
     columnHelper.accessor('flight.number', {
       header: () => 'Flight #',
       cell: (info) => info.getValue(),
     }),
-    columnHelper.accessor((row: Datum) => `${row.departure.airport} -> ${row.arrival.airport}`, {
+    columnHelper.accessor((row: Timetable) => `${row.departure.iataCode} -> ${row.arrival.iataCode}`, {
       id: 'route',
       cell: (info) => info.getValue(),
       header: () => 'Route',
     }),
-    columnHelper.accessor('departure.estimated', {
+    columnHelper.accessor('departure.estimatedTime', {
       header: () => 'Estimated Departure Time',
       cell: (info) => format(new Date(info.getValue()), 'yyyy-MM-dd HH:mm'),
     }),
@@ -32,7 +32,7 @@ const FlightsTable: FC = () => {
       header: () => 'Delay',
       cell: (info) => info.getValue() ? `${info.getValue()}m` : '-',
     }),
-    columnHelper.accessor('flight_status', {
+    columnHelper.accessor('status', {
       header: () => 'Flight Status',
       cell: (info) => info.getValue(),
     }),
