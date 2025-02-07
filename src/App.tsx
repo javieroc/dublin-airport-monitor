@@ -1,5 +1,5 @@
 import {FC} from 'react';
-import {FlightsBoard, FlightsTable, Footer, HighlightsBoard, Navbar} from './components';
+import {Disclaimer, FlightsBoard, FlightsTable, Footer, HighlightsBoard, Navbar} from './components';
 
 const App: FC = () => {
   return (
@@ -13,6 +13,7 @@ const App: FC = () => {
           </section>
           <FlightsTable />
         </section>
+        <Disclaimer />
         <Footer />
       </section>
     </>
