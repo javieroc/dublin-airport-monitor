@@ -52,7 +52,7 @@ const FlightsTable: FC = () => {
     pageCount: response?.total ? Math.ceil(response.total / pagination.pageSize) : undefined,
   });
   return (
-    <section className="w-full max-w-[1000px]">
+    <>
       <table className="hidden w-full overflow-hidden rounded-lg bg-white shadow-md sm:table">
         <thead className="bg-gray-200">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -84,7 +84,7 @@ const FlightsTable: FC = () => {
       </table>
 
       <nav
-        className="flex flex-col flex-wrap items-center justify-between pt-4 md:flex-row"
+        className="hidden flex-col flex-wrap items-center justify-between pt-4 sm:flex md:flex-row"
         aria-label="Table navigation"
       >
         <span className="mb-4 block w-full text-sm font-normal text-gray-500 md:mb-0 md:inline md:w-auto">
@@ -135,7 +135,7 @@ const FlightsTable: FC = () => {
           </li>
         </ul>
       </nav>
-    </section>
+    </>
   );
 };
 
