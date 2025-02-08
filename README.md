@@ -1,4 +1,4 @@
-## Ryan-Fail
+## RyanFail
 
 ### Motivation 
 The only purpose of this repository is to learn more about `react`, `tailwind` and more by copying the website
