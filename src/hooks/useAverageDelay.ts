@@ -11,12 +11,12 @@ const getAverageDelay = async (
 };
 
 function useAverageDelay(
-    {flightDate}: QueryParams,
+    {flightDate, airline}: QueryParams,
     options?: UseQueryOptions<{ averageDelay: number}, DefaultError, { averageDelay: number}>,
 ) {
   return useQuery<{ averageDelay: number}>({
-    queryKey: [QUERY_KEYS.AVERAGE_DELAY, flightDate],
-    queryFn: () => getAverageDelay({flightDate}),
+    queryKey: [QUERY_KEYS.AVERAGE_DELAY, flightDate, airline],
+    queryFn: () => getAverageDelay({flightDate, airline}),
     ...options,
   });
 }

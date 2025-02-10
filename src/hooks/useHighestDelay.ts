@@ -11,12 +11,12 @@ const getHishestDelay = async (
 };
 
 function useHighestDelay(
-    {flightDate}: QueryParams,
+    {flightDate, airline}: QueryParams,
     options?: UseQueryOptions<Timetable, DefaultError, Timetable>,
 ) {
   return useQuery<Timetable>({
-    queryKey: [QUERY_KEYS.HIGHEST_DELAY, flightDate],
-    queryFn: () => getHishestDelay({flightDate}),
+    queryKey: [QUERY_KEYS.HIGHEST_DELAY, flightDate, airline],
+    queryFn: () => getHishestDelay({flightDate, airline}),
     ...options,
   });
 }

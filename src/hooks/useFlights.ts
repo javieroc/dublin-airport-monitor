@@ -11,26 +11,26 @@ const getFlights = async (
 };
 
 function useFlights(
-    {flightDate}: QueryParams,
+    {flightDate, airline}: QueryParams,
     options?: UseQueryOptions<FlightsReponse, DefaultError, FlightsReponse>,
 ) {
   return useQuery<FlightsReponse>({
-    queryKey: [QUERY_KEYS.FLIGHTS, 'ALL', flightDate],
+    queryKey: [QUERY_KEYS.FLIGHTS, 'ALL', flightDate, airline],
     queryFn: () => getFlights(
-        {flightDate},
+        {flightDate, airline},
     ),
     ...options,
   });
 }
 
 function usePaginatedFlights(
-    {pageIndex, pageSize, flightDate}: PaginationParams & QueryParams,
+    {pageIndex, pageSize, flightDate, airline}: PaginationParams & QueryParams,
     options?: UseQueryOptions<FlightsReponse, DefaultError, FlightsReponse>,
 ) {
   return useQuery<FlightsReponse>({
-    queryKey: [QUERY_KEYS.FLIGHTS, pageIndex, pageSize, flightDate],
+    queryKey: [QUERY_KEYS.FLIGHTS, pageIndex, pageSize, flightDate, airline],
     queryFn: () => getFlights(
-        {flightDate, offset: pageIndex * pageSize, limit: pageSize},
+        {flightDate, offset: pageIndex * pageSize, limit: pageSize, airline},
     ),
     ...options,
   });

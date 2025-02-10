@@ -25,6 +25,7 @@ export interface PaginationApiParams {
 
 export interface QueryParams {
   flightDate?: string;
+  airline?: string;
 }
 
 export type Timetable = {

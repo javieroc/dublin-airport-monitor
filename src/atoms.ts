@@ -15,10 +15,16 @@ const nextDateAtom = atom(
     (get, set) => set(timetableDateAtom, addDays(get(timetableDateAtom), 1)),
 );
 
+const airlineOptions = ['Ryanair', 'Aer Lingus'] as const;
+
+const selectedAirlineAtom = atom<(typeof airlineOptions)[number]>('Ryanair');
+
 export {
   timetableDateAtom,
   formattedTimetableDateAtom,
   fancyTimetableDateAtom,
   previousDateAtom,
   nextDateAtom,
+  airlineOptions,
+  selectedAirlineAtom,
 };

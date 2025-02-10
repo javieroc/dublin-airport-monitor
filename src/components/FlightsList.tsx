@@ -1,14 +1,14 @@
 import {FC, useState} from 'react';
-import {usePaginatedFlights, useTimetableDate} from '../hooks';
+import {usePaginatedFlights, useFilters} from '../hooks';
 import {FaAngleLeft, FaAngleRight, FaArrowRight} from 'react-icons/fa';
 import {format} from 'date-fns';
 
 const FlightsList: FC = () => {
   const pageSize = 50;
-  const {formattedTimetableDate} = useTimetableDate();
+  const {formattedTimetableDate, selectedAirline} = useFilters();
   const [pageIndex, setPageIndex] = useState(0);
   const {data: response} = usePaginatedFlights(
-      {flightDate: formattedTimetableDate, pageIndex, pageSize},
+      {flightDate: formattedTimetableDate, airline: selectedAirline, pageIndex, pageSize},
   );
   const totalPages = response?.total ? Math.ceil(response.total / pageSize) : 0;
 

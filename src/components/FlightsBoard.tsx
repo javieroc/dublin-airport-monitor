@@ -1,12 +1,14 @@
 import {FC} from 'react';
 import {FaPlane, FaPlaneSlash} from 'react-icons/fa';
 import clsx from 'clsx';
-import {useFlights, useStats, useTimetableDate} from '../hooks';
+import {useFlights, useStats, useFilters} from '../hooks';
 
 const FlightsBoard: FC = () => {
-  const {formattedTimetableDate} = useTimetableDate();
-  const {data: stats} = useStats({flightDate: formattedTimetableDate});
-  const {data: response} = useFlights({flightDate: formattedTimetableDate});
+  const {formattedTimetableDate, selectedAirline} = useFilters();
+  const {data: stats} = useStats({flightDate: formattedTimetableDate, airline: selectedAirline});
+  const {data: response} = useFlights(
+      {flightDate: formattedTimetableDate, airline: selectedAirline},
+  );
 
   return (
     <section className="row-span-4 flex flex-col items-center justify-center gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 text-xl">
@@ -45,7 +47,7 @@ const FlightsBoard: FC = () => {
         </div>
         <div className="flex gap-1">
           <FaPlane className="h-5 w-5 text-green-500" />
-          <h3 className="text-sm">30-15min</h3>
+          <h3 className="text-sm">15-0min</h3>
         </div>
       </div>
     </section>

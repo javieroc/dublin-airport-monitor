@@ -11,12 +11,12 @@ const getStats = async (
 };
 
 function useStats(
-    {flightDate}: QueryParams,
+    {flightDate, airline}: QueryParams,
     options?: UseQueryOptions<StatsResponse, DefaultError, StatsResponse>,
 ) {
   return useQuery<StatsResponse>({
-    queryKey: [QUERY_KEYS.STATS, flightDate],
-    queryFn: () => getStats({flightDate}),
+    queryKey: [QUERY_KEYS.STATS, flightDate, airline],
+    queryFn: () => getStats({flightDate, airline}),
     ...options,
   });
 }
