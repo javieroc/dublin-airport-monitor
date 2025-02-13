@@ -15,7 +15,8 @@ const FlightsBoard: FC = () => {
       <div className="grid grid-cols-12 gap-2">
         {response?.data.map((flight) => {
           const delay = flight?.departure?.delay ?? 0;
-          return (
+          const status = flight?.status;
+          return status === 'cancelled' ? <FaPlaneSlash className="h-8 w-8 text-gray-500" key={flight.flight.number} /> : (
             <FaPlane key={flight.flight.number} className={clsx('h-8 w-8', {
               'text-red-600': delay > 45,
               'text-orange-500': 30 < delay && delay <= 45,
